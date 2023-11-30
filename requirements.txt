@@ -1,1 +1,2 @@
-YouTubeTranscriptApi
+youtube-transcript-api
+pytube
