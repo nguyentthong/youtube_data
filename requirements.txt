@@ -2,3 +2,5 @@ youtube-transcript-api
 pytube
 tqdm
 peakutils
+opencv-python
+matplotlib
