@@ -84,9 +84,12 @@ def extract_keyframes(url):
     except:
         pass
 
-    shutil.rmtree(os.path.join("temp", video_id))
+    shutil.rmtree(os.path.join("temp", video_id), ignore_errors=True)
     filename = os.path.join("downloaded_videos", video_id + '.mp4')
-    os.remove(filename)
+    try:
+        os.remove(filename)
+    except:
+        pass
     with open("checked_to_extract_keyframe_video_list.txt", 'a') as f: 
         f.write(video_id + ".mp4\n")
         f.flush()
@@ -137,9 +140,10 @@ def main():
         print("Chunk {}: To download {} videos".format(i, len(to_download_video_list)))
         download_pool = mp.Pool(processes=32)
         outputs = download_pool.map(download_video, to_download_video_list)
+        download_pool.terminate()
         extract_pool = mp.Pool(processes=32)
         outputs = extract_pool.map(extract_keyframes, current_to_process_url_list)
-
+        extract_pool.terminate()
         shutil.rmtree("downloaded_videos")
         os.makedirs("downloaded_videos")
 
