@@ -19,6 +19,7 @@ if os.path.exists("downloaded_videos"):
         for video in downloaded_video_list:
             if video not in downloaded_video_set:
                 f.write(video + '\n')
+                downloaded_video_set.add(video)
 
 
 checked_to_extract_keyframe_video_list = []
@@ -30,8 +31,9 @@ if os.path.exists("video_frames"):
     video_frames = os.listdir("video_frames")
     with open("checked_to_extract_keyframe_video_list.txt", 'a') as f:
         for video in video_frames:
-            if video + ".mp4" not in processed_video_set:
+            if video not in processed_video_set:
                 f.write(video + '\n')
+                processed_video_set.add(video)
 
 
 def download_video(url):
