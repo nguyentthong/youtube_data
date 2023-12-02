@@ -55,7 +55,10 @@ def extract_keyframes(url):
 
     shutil.rmtree(os.path.join("temp", video_id))
     filename = os.path.join("downloaded_videos", video_id + '.mp4')
-    os.remove(filename)
+    try:
+        os.remove(filename)
+    except:
+        pass
 
 
 def main():
@@ -91,8 +94,14 @@ def main():
 
     for i in trange(len(chunk_index_list)):
         current_to_process_url_list = num_frame_range_url_dict[i]
+
+        to_download_video_list = []
+        for url in current_to_process_url_list:
+            if url.split('=')[1] + '.mp4' not in downloaded_video_set: to_download_video_list.append(url)
+
+        print("Chunk {}: To download {} videos".format(i, len(to_download_video_list)))
         download_pool = mp.Pool(processes=32)
-        outputs = download_pool.map(download_video, current_to_process_url_list)
+        outputs = download_pool.map(download_video, to_download_video_list)
         extract_pool = mp.Pool(processes=32)
         outputs = extract_pool.map(extract_keyframes, current_to_process_url_list)
 
