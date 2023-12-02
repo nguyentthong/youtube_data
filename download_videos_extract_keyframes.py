@@ -6,7 +6,10 @@ from tqdm import trange
 import numpy as np
 import multiprocessing as mp
 from collections import defaultdict
-downloaded_video_set = set(os.listdir("downloaded_videos"))
+
+downloaded_video_set = set()
+if os.path.exists("downloaded_videos"):
+    downloaded_video_set = set(os.listdir("downloaded_videos"))
 
 
 def download_video(url):
@@ -71,8 +74,10 @@ def main():
 
     os.makedirs("downloaded_videos", exist_ok=True)
     os.makedirs("temp", exist_ok=True)
-
-    video_frame_list = os.listdir("video_frames")
+    
+    video_frame_list = []
+    if os.path.exists("video_frames"):
+        video_frame_list = os.listdir("video_frames")
     processed_video_set = set([file.split('.')[0] for file in video_frame_list])
 
     num_frame_range_url_dict = defaultdict(list)
