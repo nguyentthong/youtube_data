@@ -12,7 +12,7 @@ def check_audio(url):
 
     youtube = YouTube(url.strip())
     try:
-        if youtube.views < 10000 or youtube.length > 1200:
+        if youtube.views < 10000 or youtube.length < 600:
             with open("to_remove_video_url_with_transcript_list.txt", 'a') as f: f.write(url)
             return url
     except:
