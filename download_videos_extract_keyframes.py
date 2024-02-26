@@ -141,9 +141,13 @@ def main():
         download_pool = mp.Pool(processes=32)
         outputs = download_pool.map(download_video, to_download_video_list)
         download_pool.terminate()
-        extract_pool = mp.Pool(processes=32)
-        outputs = extract_pool.map(extract_keyframes, current_to_process_url_list)
-        extract_pool.terminate()
+
+        for j in trange(len(current_to_process_url_list)):
+            extract_keyframes(current_to_process_url_list[j])
+
+        # extract_pool = mp.Pool(processes=32)
+        # outputs = extract_pool.map(extract_keyframes, current_to_process_url_list)
+        # extract_pool.terminate()
         shutil.rmtree("downloaded_videos")
         os.makedirs("downloaded_videos")
 
