@@ -11,7 +11,7 @@ import datetime
 def main():
     num_frame_list = []
     url_num_frame_dict = {}
-    with open("video_url_num_frames_list.txt", 'r') as f: 
+    with open("video_url_high_num_frames_list.txt", 'r') as f: 
         lines = f.readlines()
         for i in trange(len(lines)):
             elements = lines[i].strip().split('\t')
