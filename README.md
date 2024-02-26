@@ -2,6 +2,8 @@
 
 ``python count_num_frames.py``
 
+``python filter_video_with_small_number_of_frames.py``
+
 ``python count_extracting_keyframe_time.py``
 
 ``python download_videos_extract_keyframes.py``
