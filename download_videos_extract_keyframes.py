@@ -98,7 +98,7 @@ def extract_keyframes(url):
 def main():
     num_frame_list = []
     url_num_frame_dict = {}
-    with open("video_url_num_frames_list.txt", 'r') as f: 
+    with open("video_url_high_num_frames_list.txt", 'r') as f: 
         lines = f.readlines()
         for i in trange(len(lines)):
             elements = lines[i].strip().split('\t')
@@ -137,7 +137,7 @@ def main():
         for url in current_to_process_url_list:
             if url.split('=')[1] + '.mp4' not in downloaded_video_set: to_download_video_list.append(url)
 
-        print("Chunk {}: To download {} videos".format(i, len(to_download_video_list)))
+        print("Chunk {}: To download {} videos".format(chunk_index, len(to_download_video_list)))
         download_pool = mp.Pool(processes=32)
         outputs = download_pool.map(download_video, to_download_video_list)
         download_pool.terminate()
